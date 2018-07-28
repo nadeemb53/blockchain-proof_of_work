@@ -1,4 +1,4 @@
-
+//for producing hashes
 const SHA256 = require('crypto-js/sha256');
 
 class Block{
@@ -29,6 +29,7 @@ class Block{
 class Blockchain{
     constructor(){
         this.chain = [this.createGenesisBlock()];
+        //change difficulty of mining here
         this.difficulty = 4;
     }
     
@@ -42,10 +43,12 @@ class Blockchain{
     
     addBlock(newBlock){
         newBlock.previousHash = this.getlatestBlock().hash;
+        //comment the code below to produce blocks without any difficulty
         newBlock.mineBlock(this.difficulty);
+        //uncomment the code below to produce blocks without any difficulty
         //newBlock.hash = newBlock.calculateHash();
         this.chain.push(newBlock);
-    } //In reality we cannot add a new block so easily. There are numerous checks in place like 'Proof of work', 'Proof of stake' etc.
+    }
     
     isChainValid(){
         for(let i = 1; i < this.chain.length; i++){
